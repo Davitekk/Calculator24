@@ -13,6 +13,10 @@ This code has been only tested with a direct LAN connection from the computer to
 - Install Pyton requirements: 
 `pip install -r requirements.txt`
 - Insert your Ethernet card name and Control|24 MAC Address on line 7 and 8 of the Python script
+- You can find your Control|24 Console MAC Address by going in: `Utilities > Sys Info`
+- Hold the button and Write down the Ethernet ID Value, you can press the Utility button once to make the writing persist, reboot the mixer to exit out of the Sys Info Menu.
 - Connect your Control|24 Console to your PC via LAN if not done already.
 - Run the script as root
 - Enjoy :)
+
+This project was made for fun while trying to reverse engineer the Digidesign LAN protocol to make this console work on recent pro tools versions with open source code. (Still WIP)
