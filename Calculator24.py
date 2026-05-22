@@ -4,7 +4,7 @@ import sys
 import mido
 from scapy.all import conf, Ether, Raw
 
-INTERFACE = "Network_Card_Name_Here" # La tua interfaccia Arch
+INTERFACE = "Network_Card_Name_Here"
 MAC_CONSOLE = "Insert_MAC_Address_Here"
 
 print("===============================================================")
@@ -102,7 +102,6 @@ def write_transport(text):
     for char in reversed_text:
         tc_hardware_bytes.append(TRANSPORT_FONT.get(char, 0x00))
 
-    # SICURA HARDWARE: Tagliamo a 8 byte esatti per impedire il blocco del SysEx
     tc_hardware_bytes = tc_hardware_bytes[:8]
 
     sysex_tr = bytearray.fromhex("f0 13 01 30 19")
@@ -187,14 +186,14 @@ def handle_calculator_key(key):
         write_transport(calc_input)
         print(f"🔹 Input: {calc_input}")
 
-    # 2. CAMBIO SEGNO (+/-) -> Tasto ENTER
+  
     elif key == '+/-':
         if calc_input != "0" and calc_input != "Err":
             if calc_input.startswith('-'):
-                # Toglie il meno
+     
                 calc_input = calc_input[1:]
             else:
-                # Aggiunge il meno (se c'è spazio fisico)
+        
                 slots_count = len(calc_input.replace('.', ''))
                 if slots_count < 8:
                     calc_input = '-' + calc_input
@@ -205,7 +204,6 @@ def handle_calculator_key(key):
             write_transport(calc_input)
             print(f"Swapped sign: {calc_input}")
 
-    # 3. OPERATORI (+, -, *, /)
     elif key in ['+', '-', '*', '/']:
         if not calc_reset and calc_op and calc_stored is not None:
             try:
@@ -236,7 +234,7 @@ def handle_calculator_key(key):
         calc_reset = True
         print(f"🔸 Operator: {calc_op} | Last Value: {calc_stored}")
 
-    # 4. TASTO UGUALE (=)
+
     elif key == '=':
         try:
             if calc_op:
@@ -276,7 +274,7 @@ def handle_calculator_key(key):
             last_val = None
             calc_reset = True
 
-    # 5. TASTO CLEAR (C)
+
     elif key == 'C':
         calc_input = "0"
         calc_stored = None
@@ -345,7 +343,7 @@ while True:
                                 elif note == 14:       handle_calculator_key('-')
                                 elif note == 15:       handle_calculator_key('+')
                                 elif note == 16:       handle_calculator_key('.')
-                                elif note == 17:       handle_calculator_key('+/-') # ENTER trasforma in negativo
+                                elif note == 17:       handle_calculator_key('+/-')
 
     except Exception as e:
         pass
